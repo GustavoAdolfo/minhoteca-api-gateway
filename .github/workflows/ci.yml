@@ -92,6 +92,17 @@ jobs:
           TF_VAR_cognito_user_pool_id: ${{ vars.cognito_user_pool_id }}
           TF_VAR_api_minimum_compression_size: ${{ vars.api_minimum_compression_size }}
           TF_VAR_lambda_acervo: ${{ vars.lambda_acervo }}
+          TF_VAR_cache_cluster_enabled: ${{ vars.cache_cluster_enabled }}
+          TF_VAR_cache_cluster_size: ${{ vars.cache_cluster_size }}
+          TF_VAR_api_stage_default_variables: ${{ vars.api_stage_default_variables }}
+          TF_VAR_enable_api_xray: ${{ vars.enable_api_xray }}
+          TF_VAR_api_log_retention_in_days: ${{ vars.api_log_retention_in_days }}
+          TF_VAR_api_quota_settings_limit: ${{ vars.api_quota_settings_limit }}
+          TF_VAR_api_quota_settings_offset: ${{ vars.api_quota_settings_offset }}
+          TF_VAR_api_quota_settings_period: ${{ vars.api_quota_settings_period }}
+          TF_VAR_api_throttle_settings_burst: ${{ vars.api_throttle_settings_burst }}
+          TF_VAR_api_throttle_settings_rate: ${{ vars.api_throttle_settings_rate }}
+          TF_VAR_metrics_enabled: ${{ vars.metrics_enabled }}
         run: terraform plan -out=tfplan
 
       - name: Terraform Apply
@@ -103,4 +114,16 @@ jobs:
           TF_VAR_cognito_user_pool_id: ${{ vars.cognito_user_pool_id }}
           TF_VAR_api_minimum_compression_size: ${{ vars.api_minimum_compression_size }}
           TF_VAR_lambda_acervo: ${{ vars.lambda_acervo }}
+          TF_VAR_cache_cluster_enabled: ${{ vars.cache_cluster_enabled }}
+          TF_VAR_cache_cluster_size: ${{ vars.cache_cluster_size }}
+          TF_VAR_api_stage_default_variables: ${{ vars.api_stage_default_variables }}
+          TF_VAR_enable_api_xray: ${{ vars.enable_api_xray }}
+          TF_VAR_api_log_retention_in_days: ${{ vars.api_log_retention_in_days }}
+          TF_VAR_api_quota_settings_limit: ${{ vars.api_quota_settings_limit }}
+          TF_VAR_api_quota_settings_offset: ${{ vars.api_quota_settings_offset }}
+          TF_VAR_api_quota_settings_period: ${{ vars.api_quota_settings_period }}
+          TF_VAR_api_throttle_settings_burst: ${{ vars.api_throttle_settings_burst }}
+          TF_VAR_api_throttle_settings_rate: ${{ vars.api_throttle_settings_rate }}
+          TF_VAR_metrics_enabled: ${{ vars.metrics_enabled }}
+
         run: terraform apply -auto-approve tfplan
