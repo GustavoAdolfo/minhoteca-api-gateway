@@ -1,5 +1,5 @@
 resource "aws_api_gateway_resource" "getLivros_resource" {
-  rest_api_id = aws_api_gateway_account.api_account.id
+  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
   parent_id   = aws_api_gateway_resource.resource_v1.id
   path_part   = "livros"
 }
@@ -7,7 +7,7 @@ resource "aws_api_gateway_resource" "getLivros_resource" {
 #### OPTIONS E CORS
 resource "aws_api_gateway_method" "options_getLivros" {
   #checkov:skip=CKV2_AWS_53: "Nenhum validador de requisição aplicável par ao momento"
-  rest_api_id      = aws_api_gateway_account.api_account.id
+  rest_api_id      = aws_api_gateway_rest_api.api_minhoteca.id
   resource_id      = aws_api_gateway_resource.getLivros_resource.id
   http_method      = "OPTIONS"
   authorization    = "NONE"
@@ -15,7 +15,7 @@ resource "aws_api_gateway_method" "options_getLivros" {
 }
 
 resource "aws_api_gateway_integration" "options_getLivros_integration" {
-  rest_api_id = aws_api_gateway_account.api_account.id
+  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
   resource_id = aws_api_gateway_resource.getLivros_resource.id
   # http_method = "OPTIONS"
   http_method          = aws_api_gateway_method.options_getLivros.http_method
@@ -31,7 +31,7 @@ resource "aws_api_gateway_integration" "options_getLivros_integration" {
 }
 
 resource "aws_api_gateway_method_response" "options_getLivros_response" {
-  rest_api_id = aws_api_gateway_account.api_account.id
+  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
   resource_id = aws_api_gateway_resource.getLivros_resource.id
   http_method = aws_api_gateway_method.options_getLivros.http_method
   status_code = "200"
@@ -52,7 +52,7 @@ resource "aws_api_gateway_integration_response" "options_getLivros_integration_r
     aws_api_gateway_integration.options_getLivros_integration,
     aws_api_gateway_method_response.options_getLivros_response
   ]
-  rest_api_id = aws_api_gateway_account.api_account.id
+  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
   resource_id = aws_api_gateway_resource.getLivros_resource.id
   http_method = aws_api_gateway_method.options_getLivros.http_method
   status_code = "200"
@@ -69,7 +69,7 @@ resource "aws_api_gateway_integration_response" "options_getLivros_integration_r
 
 resource "aws_api_gateway_method" "getLivros_method" {
   #checkov:skip=CKV2_AWS_53: "Nenhum validador de requisição aplicável par ao momento"
-  rest_api_id      = aws_api_gateway_account.api_account.id
+  rest_api_id      = aws_api_gateway_rest_api.api_minhoteca.id
   resource_id      = aws_api_gateway_resource.getLivros_resource.id
   http_method      = "GET"
   api_key_required = true
@@ -84,7 +84,7 @@ resource "aws_api_gateway_integration" "getLivros_integration" {
   depends_on = [
     aws_api_gateway_method.getLivros_method
   ]
-  rest_api_id             = aws_api_gateway_account.api_account.id
+  rest_api_id             = aws_api_gateway_rest_api.api_minhoteca.id
   resource_id             = aws_api_gateway_resource.getLivros_resource.id
   http_method             = aws_api_gateway_method.getLivros_method.http_method
   integration_http_method = "POST"
@@ -93,7 +93,7 @@ resource "aws_api_gateway_integration" "getLivros_integration" {
 }
 
 resource "aws_api_gateway_model" "getLivros_response_model" {
-  rest_api_id  = aws_api_gateway_account.api_account.id
+  rest_api_id  = aws_api_gateway_rest_api.api_minhoteca.id
   name         = "getLivrosResponseModel"
   description  = "API response for getLivros method"
   content_type = "application/json"
@@ -129,7 +129,7 @@ resource "aws_api_gateway_model" "getLivros_response_model" {
 
 resource "aws_api_gateway_method_response" "getLivros_response_200" {
   depends_on  = [aws_api_gateway_method.getLivros_method]
-  rest_api_id = aws_api_gateway_account.api_account.id
+  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
   resource_id = aws_api_gateway_resource.getLivros_resource.id
   http_method = aws_api_gateway_method.getLivros_method.http_method
   status_code = "200"
@@ -149,7 +149,7 @@ resource "aws_api_gateway_integration_response" "getLivros_integration_response_
   depends_on = [
     aws_api_gateway_integration.getLivros_integration
   ]
-  rest_api_id = aws_api_gateway_account.api_account.id
+  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
   resource_id = aws_api_gateway_resource.getLivros_resource.id
   http_method = aws_api_gateway_method.getLivros_method.http_method
   status_code = aws_api_gateway_method_response.getLivros_response_200.status_code
