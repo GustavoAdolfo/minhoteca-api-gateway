@@ -91,7 +91,7 @@ jobs:
           TF_VAR_api_name: ${{ vars.api_name }}
           TF_VAR_cognito_user_pool_id: ${{ vars.cognito_user_pool_id }}
           TF_VAR_api_minimum_compression_size: ${{ vars.api_minimum_compression_size }}
-          TF_VAR_lambda_acervo_arn: ${{ vars.lambda_acervo_arn }}
+          TF_VAR_lambda_acervo: ${{ vars.lambda_acervo_arn }}
         run: terraform plan -out=tfplan
 
       - name: Terraform Apply
@@ -102,5 +102,5 @@ jobs:
           TF_VAR_api_name: ${{ vars.api_name }}
           TF_VAR_cognito_user_pool_id: ${{ vars.cognito_user_pool_id }}
           TF_VAR_api_minimum_compression_size: ${{ vars.api_minimum_compression_size }}
-          TF_VAR_lambda_acervo_arn: ${{ vars.lambda_acervo_arn }}
+          TF_VAR_lambda_acervo: ${{ vars.lambda_acervo_arn }}
         run: terraform apply -auto-approve tfplan
