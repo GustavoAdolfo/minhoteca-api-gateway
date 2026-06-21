@@ -88,6 +88,7 @@ jobs:
         env:
           TF_VAR_appregistry_id: ${{ vars.appregistry_id }}
           TF_VAR_api_key_name: ${{ vars.api_key_name }}
+          TF_VAR_api_name: ${{ vars.api_name }}
           TF_VAR_cognito_user_pool_id: ${{ vars.cognito_user_pool_id }}
           TF_VAR_api_minimum_compression_size: ${{ vars.api_minimum_compression_size }}
         run: terraform plan -out=tfplan
@@ -97,6 +98,7 @@ jobs:
         env:
           TF_VAR_appregistry_id: ${{ vars.appregistry_id }}
           TF_VAR_api_key_name: ${{ vars.api_key_name }}
+          TF_VAR_api_name: ${{ vars.api_name }}
           TF_VAR_cognito_user_pool_id: ${{ vars.cognito_user_pool_id }}
           TF_VAR_api_minimum_compression_size: ${{ vars.api_minimum_compression_size }}
         run: terraform apply -auto-approve tfplan
