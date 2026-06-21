@@ -14,7 +14,7 @@ variable "api_name" {
   type        = string
   description = "Nome da API Gateway"
 }
-variable "api_minimum_compression" {
+variable "api_minimum_compression_size" {
   type        = string
   description = "Tamanho mínimo para compressão de respostas na API Gateway"
 }

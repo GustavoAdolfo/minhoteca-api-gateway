@@ -20,11 +20,11 @@ provider "aws" {
 }
 
 module "gateway" {
-  source                  = "../../modules/gateway"
-  application_tags        = local.application_tags
-  api_minimum_compression = var.api_minimum_compression
-  api_name                = var.api_name
-  api_key_name            = var.api_key_name
-  cognito_user_pool_arn   = local.cognito_user_pool_arn
-  lambda_acervo_arn       = local.lambda_acervo_arn
+  source                       = "../../modules/gateway"
+  application_tags             = local.application_tags
+  api_minimum_compression_size = var.api_minimum_compression_size
+  api_name                     = var.api_name
+  api_key_name                 = var.api_key_name
+  cognito_user_pool_arn        = local.cognito_user_pool_arn
+  lambda_acervo_arn            = local.lambda_acervo_arn
 }

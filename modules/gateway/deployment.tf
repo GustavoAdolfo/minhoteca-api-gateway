@@ -26,8 +26,4 @@ resource "aws_api_gateway_deployment" "api_deploy" {
       local.api_configuration_json
     ]))
   }
-
-  depends_on = [
-
-  ]
 }
