@@ -20,14 +20,3 @@ output "api_key_id" {
 output "authorizer_id" {
   value = aws_api_gateway_authorizer.authorizer.id
 }
-
-output "api_configuration_json" {
-  description = "A JSON representation of all API Gateway resources to trigger a new deployment on change."
-
-  # No Terraform não é possível referenciar recursos internos de módulos filhos.
-  # Uma solução mais escalável e de fácil manutenção para o API Gateway é gerar
-  # um hash baseado no conteúdo de todos os arquivos .tf de configuração da API.
-  value = jsonencode([
-    for f in fileset(path.module, "**/*.tf") : filesha1("${path.module}/${f}")
-  ])
-}
