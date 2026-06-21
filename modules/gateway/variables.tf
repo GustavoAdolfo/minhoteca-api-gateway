@@ -4,22 +4,15 @@ variable "api_name" { type = string }
 variable "api_key_name" { type = string }
 variable "cognito_user_pool_arn" { type = string }
 variable "lambda_acervo_arn" { type = string }
-# # variable "region_name" { type = string }
-# # variable "account_id" { type = string }
-# # variable "project_name" { type = string }
 
-
-# variable "lambda_admin_invoke_arn" { type = string }
-# variable "lambda_admin_arn" { type = string }
-# variable "lambda_user_service_invoke_arn" { type = string }
-# variable "lambda_user_service_arn" { type = string }
-# variable "lambda_autores_invoke_arn" { type = string }
-# variable "lambda_autores_arn" { type = string }
-# variable "lambda_livros_invoke_arn" { type = string }
-# variable "lambda_livros_arn" { type = string }
-
-# # # variable "domain_name" { type = string }
-# # variable "default_kms_alias" { type = string }
-# # variable "function_name_user_service" { type = string }
-# # variable "function_name_borrow_service" { type = string }
-# # variable "cognito_user_pool_name" { type = string }
+variable "cache_cluster_enabled" { type = bool }
+variable "cache_cluster_size" { type = number }
+variable "api_stage_default_variables" { type = map(any) }
+variable "enable_api_xray" { type = bool }
+variable "api_log_retention_in_days" { type = number }
+variable "api_quota_settings_limit" { type = string }
+variable "api_quota_settings_offset" { type = string }
+variable "api_quota_settings_period" { type = string }
+variable "api_throttle_settings_burst" { type = string }
+variable "api_throttle_settings_rate" { type = string }
+variable "metrics_enabled" { type = bool }
