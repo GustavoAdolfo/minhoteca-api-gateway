@@ -1,5 +1,5 @@
 variable "application_tags" { type = map(string) }
-variable "api_minimum_compression" { type = string }
+variable "api_minimum_compression_size" { type = string }
 variable "api_name" { type = string }
 variable "api_key_name" { type = string }
 variable "cognito_user_pool_arn" { type = string }

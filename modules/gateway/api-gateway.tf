@@ -6,7 +6,7 @@ resource "aws_api_gateway_rest_api" "api_minhoteca" {
   name                     = var.api_name
   description              = "API do Minhoteca"
   api_key_source           = "HEADER"
-  minimum_compression_size = var.api_minimum_compression
+  minimum_compression_size = var.api_minimum_compression_size
   lifecycle {
     create_before_destroy = true
   }
