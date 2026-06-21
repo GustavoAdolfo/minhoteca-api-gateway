@@ -1,3 +1,7 @@
+data "aws_region" "current" {}
+
+data "aws_partition" "current" {}
+
 resource "aws_api_gateway_account" "api_account" {
   cloudwatch_role_arn = aws_iam_role.cloudwatch.arn
 }

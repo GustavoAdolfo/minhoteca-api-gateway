@@ -95,7 +95,7 @@ resource "aws_api_gateway_integration" "getLivro_integration" {
   http_method             = aws_api_gateway_method.getLivro_method.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = var.lambda_acervo_arn
+  uri                     = "arn:${data.aws_partition.current.partition}:apigateway:${data.aws_region.current.name}:lambda:path/2015-03-31/functions/${var.lambda_acervo_arn}/invocations"
 }
 
 resource "aws_api_gateway_model" "getLivro_response_model" {
