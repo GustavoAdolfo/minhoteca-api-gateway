@@ -1,24 +1,24 @@
-resource "aws_api_gateway_resource" "getLivros_resource" {
+resource "aws_api_gateway_resource" "getAutores_resource" {
   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
   parent_id   = aws_api_gateway_resource.resource_v1.id
-  path_part   = "livros"
+  path_part   = "autores"
 }
 
 #### OPTIONS E CORS
-resource "aws_api_gateway_method" "options_getLivros" {
+resource "aws_api_gateway_method" "options_getAutores" {
   #checkov:skip=CKV2_AWS_53: "Nenhum validador de requisição aplicável par ao momento"
   rest_api_id      = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id      = aws_api_gateway_resource.getLivros_resource.id
+  resource_id      = aws_api_gateway_resource.getAutores_resource.id
   http_method      = "OPTIONS"
   authorization    = "NONE"
   api_key_required = false
 }
 
-resource "aws_api_gateway_integration" "options_getLivros_integration" {
+resource "aws_api_gateway_integration" "options_getAutores_integration" {
   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id = aws_api_gateway_resource.getLivros_resource.id
+  resource_id = aws_api_gateway_resource.getAutores_resource.id
   # http_method = "OPTIONS"
-  http_method          = aws_api_gateway_method.options_getLivros.http_method
+  http_method          = aws_api_gateway_method.options_getAutores.http_method
   type                 = "MOCK"
   content_handling     = "CONVERT_TO_TEXT"
   passthrough_behavior = "WHEN_NO_MATCH"
@@ -30,10 +30,10 @@ resource "aws_api_gateway_integration" "options_getLivros_integration" {
   }
 }
 
-resource "aws_api_gateway_method_response" "options_getLivros_response" {
+resource "aws_api_gateway_method_response" "options_getAutores_response" {
   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id = aws_api_gateway_resource.getLivros_resource.id
-  http_method = aws_api_gateway_method.options_getLivros.http_method
+  resource_id = aws_api_gateway_resource.getAutores_resource.id
+  http_method = aws_api_gateway_method.options_getAutores.http_method
   status_code = "200"
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = true
@@ -47,18 +47,18 @@ resource "aws_api_gateway_method_response" "options_getLivros_response" {
   }
 }
 
-resource "aws_api_gateway_integration_response" "options_getLivros_integration_response" {
+resource "aws_api_gateway_integration_response" "options_getAutores_integration_response" {
   depends_on = [
-    aws_api_gateway_integration.options_getLivros_integration,
-    aws_api_gateway_method_response.options_getLivros_response
+    aws_api_gateway_integration.options_getAutores_integration,
+    aws_api_gateway_method_response.options_getAutores_response
   ]
   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id = aws_api_gateway_resource.getLivros_resource.id
-  http_method = aws_api_gateway_method.options_getLivros.http_method
+  resource_id = aws_api_gateway_resource.getAutores_resource.id
+  http_method = aws_api_gateway_method.options_getAutores.http_method
   status_code = "200"
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = "'*'"
-    "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,x-api-access,X-API-ACCESS,Authorization,X-Amz-Date,X-Amz-Security-Token,X-Api-Key'"
+    "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,Authorization,x-api-access,X-API-ACCESS,X-Amz-Date,X-Amz-Security-Token,X-Api-Key'"
     "method.response.header.Access-Control-Allow-Methods"     = "'GET,OPTIONS,PUT'"
     "method.response.header.Access-Control-Max-Age"           = "'7200'"
     "method.response.header.Access-Control-Allow-Credentials" = "'false'"
@@ -67,39 +67,39 @@ resource "aws_api_gateway_integration_response" "options_getLivros_integration_r
 
 ##### GET
 
-resource "aws_api_gateway_method" "getLivros_method" {
+resource "aws_api_gateway_method" "getAutores_method" {
   #checkov:skip=CKV2_AWS_53: "Nenhum validador de requisição aplicável par ao momento"
   rest_api_id      = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id      = aws_api_gateway_resource.getLivros_resource.id
+  resource_id      = aws_api_gateway_resource.getAutores_resource.id
   http_method      = "GET"
   api_key_required = true
   authorization    = "NONE"
 }
 
-output "getLivros_method_path" {
-  value = "${aws_api_gateway_resource.getLivros_resource.path}/${aws_api_gateway_method.getLivros_method.http_method}"
+output "getAutores_method_path" {
+  value = "${aws_api_gateway_resource.getAutores_resource.path}/${aws_api_gateway_method.getAutores_method.http_method}"
 }
 
-resource "aws_api_gateway_integration" "getLivros_integration" {
+resource "aws_api_gateway_integration" "getAutores_integration" {
   depends_on = [
-    aws_api_gateway_method.getLivros_method
+    aws_api_gateway_method.getAutores_method
   ]
   rest_api_id             = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id             = aws_api_gateway_resource.getLivros_resource.id
-  http_method             = aws_api_gateway_method.getLivros_method.http_method
+  resource_id             = aws_api_gateway_resource.getAutores_resource.id
+  http_method             = aws_api_gateway_method.getAutores_method.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = var.lambda_acervo_invoke_arn
 }
 
-resource "aws_api_gateway_model" "getLivros_response_model" {
+resource "aws_api_gateway_model" "getAutores_response_model" {
   rest_api_id  = aws_api_gateway_rest_api.api_minhoteca.id
-  name         = "getLivrosResponseModel"
-  description  = "API response for getLivros method"
+  name         = "getAutoresResponseModel"
+  description  = "API response for getAutores method"
   content_type = "application/json"
   schema = jsonencode({
     "$schema" = "http://json-schema.org/draft-04/schema#"
-    title     = "getLivrosResponse"
+    title     = "getAutoresResponse"
     type      = "array"
     items = {
       type     = "object"
@@ -127,11 +127,11 @@ resource "aws_api_gateway_model" "getLivros_response_model" {
   })
 }
 
-resource "aws_api_gateway_method_response" "getLivros_response_200" {
-  depends_on  = [aws_api_gateway_method.getLivros_method]
+resource "aws_api_gateway_method_response" "getAutores_response_200" {
+  depends_on  = [aws_api_gateway_method.getAutores_method]
   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id = aws_api_gateway_resource.getLivros_resource.id
-  http_method = aws_api_gateway_method.getLivros_method.http_method
+  resource_id = aws_api_gateway_resource.getAutores_resource.id
+  http_method = aws_api_gateway_method.getAutores_method.http_method
   status_code = "200"
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = true
@@ -141,21 +141,21 @@ resource "aws_api_gateway_method_response" "getLivros_response_200" {
     "method.response.header.Access-Control-Allow-Credentials" = true
   }
   response_models = {
-    "application/json" = aws_api_gateway_model.getLivros_response_model.name
+    "application/json" = aws_api_gateway_model.getAutores_response_model.name
   }
 }
 
-resource "aws_api_gateway_integration_response" "getLivros_integration_response_200" {
+resource "aws_api_gateway_integration_response" "getAutores_integration_response_200" {
   depends_on = [
-    aws_api_gateway_integration.getLivros_integration
+    aws_api_gateway_integration.getAutores_integration
   ]
   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id = aws_api_gateway_resource.getLivros_resource.id
-  http_method = aws_api_gateway_method.getLivros_method.http_method
-  status_code = aws_api_gateway_method_response.getLivros_response_200.status_code
+  resource_id = aws_api_gateway_resource.getAutores_resource.id
+  http_method = aws_api_gateway_method.getAutores_method.http_method
+  status_code = aws_api_gateway_method_response.getAutores_response_200.status_code
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = "'*'"
-    "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,x-api-access,X-API-ACCESS,Authorization,X-Amz-Date,X-Amz-Security-Token,X-Api-Key'"
+    "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,Authorization,x-api-access,X-API-ACCESS,X-Amz-Date,X-Amz-Security-Token,X-Api-Key'"
     "method.response.header.Access-Control-Allow-Methods"     = "'GET,OPTIONS,POST,PUT'"
     "method.response.header.Access-Control-Max-Age"           = "'7200'"
     "method.response.header.Access-Control-Allow-Credentials" = "'false'"

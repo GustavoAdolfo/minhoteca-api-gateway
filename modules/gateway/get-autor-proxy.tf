@@ -1,30 +1,30 @@
-resource "aws_api_gateway_resource" "getLivro_resource" {
+resource "aws_api_gateway_resource" "getAutor_resource" {
   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
   parent_id   = aws_api_gateway_resource.resource_v1.id
-  path_part   = "livro"
+  path_part   = "autor"
 }
 
-resource "aws_api_gateway_resource" "gateway_getLivro" {
+resource "aws_api_gateway_resource" "gateway_getAutor" {
   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
-  parent_id   = aws_api_gateway_resource.getLivro_resource.id
+  parent_id   = aws_api_gateway_resource.getAutor_resource.id
   path_part   = "{id}"
 }
 
 #### OPTIONS E CORS
-resource "aws_api_gateway_method" "gateway_optionsLivro_method" {
+resource "aws_api_gateway_method" "optionsAutor_method" {
   #checkov:skip=CKV2_AWS_53: "Nenhum validador de requisição aplicável par ao momento"
   rest_api_id      = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id      = aws_api_gateway_resource.gateway_getLivro.id
+  resource_id      = aws_api_gateway_resource.gateway_getAutor.id
   http_method      = "OPTIONS"
   authorization    = "NONE"
   api_key_required = false
 }
 
-resource "aws_api_gateway_integration" "gateway_getLivro_integration" {
+resource "aws_api_gateway_integration" "optionsAutor_integration" {
   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id = aws_api_gateway_resource.gateway_getLivro.id
+  resource_id = aws_api_gateway_resource.gateway_getAutor.id
   # http_method = "OPTIONS"
-  http_method          = aws_api_gateway_method.gateway_optionsLivro_method.http_method
+  http_method          = aws_api_gateway_method.optionsAutor_method.http_method
   type                 = "MOCK"
   content_handling     = "CONVERT_TO_TEXT"
   passthrough_behavior = "WHEN_NO_MATCH"
@@ -36,10 +36,10 @@ resource "aws_api_gateway_integration" "gateway_getLivro_integration" {
   }
 }
 
-resource "aws_api_gateway_method_response" "gateway_getLivro_method_response" {
+resource "aws_api_gateway_method_response" "optionsAutor_method_response" {
   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id = aws_api_gateway_resource.gateway_getLivro.id
-  http_method = aws_api_gateway_method.gateway_optionsLivro_method.http_method
+  resource_id = aws_api_gateway_resource.gateway_getAutor.id
+  http_method = aws_api_gateway_method.optionsAutor_method.http_method
   status_code = "200"
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = true
@@ -53,14 +53,14 @@ resource "aws_api_gateway_method_response" "gateway_getLivro_method_response" {
   }
 }
 
-resource "aws_api_gateway_integration_response" "gateway_getLivro_integration_response" {
+resource "aws_api_gateway_integration_response" "optionsAutor_integration_response" {
   depends_on = [
-    aws_api_gateway_integration.gateway_getLivro_integration,
-    aws_api_gateway_method_response.gateway_getLivro_method_response
+    aws_api_gateway_integration.optionsAutor_integration,
+    aws_api_gateway_method_response.optionsAutor_method_response
   ]
   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id = aws_api_gateway_resource.gateway_getLivro.id
-  http_method = aws_api_gateway_method.gateway_optionsLivro_method.http_method
+  resource_id = aws_api_gateway_resource.gateway_getAutor.id
+  http_method = aws_api_gateway_method.optionsAutor_method.http_method
   status_code = "200"
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = "'*'"
@@ -73,39 +73,39 @@ resource "aws_api_gateway_integration_response" "gateway_getLivro_integration_re
 
 ##### GET
 
-resource "aws_api_gateway_method" "getLivro_method" {
+resource "aws_api_gateway_method" "getAutor_method" {
   #checkov:skip=CKV2_AWS_53: "Nenhum validador de requisição aplicável par ao momento"
   rest_api_id      = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id      = aws_api_gateway_resource.gateway_getLivro.id
+  resource_id      = aws_api_gateway_resource.gateway_getAutor.id
   http_method      = "GET"
   api_key_required = true
   authorization    = "NONE"
 }
 
-output "getLivro_method_path" {
-  value = "${aws_api_gateway_resource.gateway_getLivro.path}/${aws_api_gateway_method.getLivro_method.http_method}"
+output "getAutor_method_path" {
+  value = "${aws_api_gateway_resource.gateway_getAutor.path}/${aws_api_gateway_method.getAutor_method.http_method}"
 }
 
-resource "aws_api_gateway_integration" "getLivro_integration" {
+resource "aws_api_gateway_integration" "getAutor_integration" {
   depends_on = [
-    aws_api_gateway_method.getLivro_method
+    aws_api_gateway_method.getAutor_method
   ]
   rest_api_id             = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id             = aws_api_gateway_resource.gateway_getLivro.id
-  http_method             = aws_api_gateway_method.getLivro_method.http_method
+  resource_id             = aws_api_gateway_resource.gateway_getAutor.id
+  http_method             = aws_api_gateway_method.getAutor_method.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = var.lambda_acervo_invoke_arn
 }
 
-resource "aws_api_gateway_model" "getLivro_response_model" {
+resource "aws_api_gateway_model" "getAutor_response_model" {
   rest_api_id  = aws_api_gateway_rest_api.api_minhoteca.id
-  name         = "getLivroResponseModel"
-  description  = "API response for getLivro method"
+  name         = "getAutorResponseModel"
+  description  = "API response for getAutor method"
   content_type = "application/json"
   schema = jsonencode({
     "$schema" = "http://json-schema.org/draft-04/schema#"
-    title     = "getLivroResponse"
+    title     = "getAutorResponse"
     type      = "object"
     required  = ["id", "nome", "idPais", "pais", "totalLivros"]
     properties = {
@@ -141,14 +141,14 @@ resource "aws_api_gateway_model" "getLivro_response_model" {
   })
 }
 
-resource "aws_api_gateway_method_response" "getLivro_response_200" {
-  depends_on  = [aws_api_gateway_method.getLivro_method]
+resource "aws_api_gateway_method_response" "getAutor_response_200" {
+  depends_on  = [aws_api_gateway_method.getAutor_method]
   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id = aws_api_gateway_resource.gateway_getLivro.id
-  http_method = aws_api_gateway_method.getLivro_method.http_method
+  resource_id = aws_api_gateway_resource.gateway_getAutor.id
+  http_method = aws_api_gateway_method.getAutor_method.http_method
   status_code = "200"
   response_models = {
-    "application/json" = aws_api_gateway_model.getLivro_response_model.name
+    "application/json" = aws_api_gateway_model.getAutor_response_model.name
   }
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = true
@@ -159,14 +159,14 @@ resource "aws_api_gateway_method_response" "getLivro_response_200" {
   }
 }
 
-resource "aws_api_gateway_integration_response" "getLivro_integration_response_200" {
+resource "aws_api_gateway_integration_response" "getAutor_integration_response_200" {
   depends_on = [
-    aws_api_gateway_integration.getLivro_integration
+    aws_api_gateway_integration.getAutor_integration
   ]
   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id = aws_api_gateway_resource.gateway_getLivro.id
-  http_method = aws_api_gateway_method.getLivro_method.http_method
-  status_code = aws_api_gateway_method_response.getLivro_response_200.status_code
+  resource_id = aws_api_gateway_resource.gateway_getAutor.id
+  http_method = aws_api_gateway_method.getAutor_method.http_method
+  status_code = aws_api_gateway_method_response.getAutor_response_200.status_code
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = "'*'"
     "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,Authorization,x-api-access,X-API-ACCESS,X-Amz-Date,X-Amz-Security-Token,X-Api-Key'"
