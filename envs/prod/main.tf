@@ -38,4 +38,5 @@ module "gateway" {
   api_throttle_settings_burst  = var.api_throttle_settings_burst
   api_throttle_settings_rate   = var.api_throttle_settings_rate
   metrics_enabled              = var.metrics_enabled
+  lambda_acervo_invoke_arn     = local.lambda_acervo_invoke_arn
 }
