@@ -26,7 +26,6 @@ module "gateway" {
   api_name                     = var.api_name
   api_key_name                 = var.api_key_name
   cognito_user_pool_arn        = local.cognito_user_pool_arn
-  lambda_acervo_arn            = local.lambda_acervo_arn
   cache_cluster_enabled        = var.cache_cluster_enabled
   cache_cluster_size           = var.cache_cluster_size
   api_stage_default_variables  = var.api_stage_default_variables
@@ -38,5 +37,8 @@ module "gateway" {
   api_throttle_settings_burst  = var.api_throttle_settings_burst
   api_throttle_settings_rate   = var.api_throttle_settings_rate
   metrics_enabled              = var.metrics_enabled
+  lambda_acervo_arn            = local.lambda_acervo_arn
   lambda_acervo_invoke_arn     = local.lambda_acervo_invoke_arn
+  lambda_usuario_arn           = local.lambda_usuario_arn
+  lambda_usuario_invoke_arn    = local.lambda_usuario_invoke_arn
 }
