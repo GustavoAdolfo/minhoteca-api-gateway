@@ -6,6 +6,9 @@ variable "cognito_user_pool_arn" { type = string }
 variable "lambda_acervo_arn" { type = string }
 variable "lambda_acervo_invoke_arn" { type = string }
 
+variable "lambda_usuario_arn" { type = string }
+variable "lambda_usuario_invoke_arn" { type = string }
+
 variable "cache_cluster_enabled" { type = bool }
 variable "cache_cluster_size" { type = number }
 variable "api_stage_default_variables" { type = map(any) }

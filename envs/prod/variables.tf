@@ -6,6 +6,10 @@ variable "lambda_acervo" {
   type        = string
   description = "Nome da função Lambda para o acervo"
 }
+variable "lambda_usuario" {
+  type        = string
+  description = "Nome da função Lambda para o usuário"
+}
 variable "cognito_user_pool_id" {
   type        = string
   description = "ID do User Pool do Cognito para autenticação na API"
