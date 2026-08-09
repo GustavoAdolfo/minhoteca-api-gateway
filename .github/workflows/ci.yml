@@ -92,6 +92,7 @@ jobs:
           TF_VAR_cognito_user_pool_id: ${{ vars.cognito_user_pool_id }}
           TF_VAR_api_minimum_compression_size: ${{ vars.api_minimum_compression_size }}
           TF_VAR_lambda_acervo: ${{ vars.lambda_acervo }}
+          TF_VAR_lambda_usuario: ${{ vars.lambda_usuario }}
           TF_VAR_cache_cluster_enabled: ${{ vars.cache_cluster_enabled }}
           TF_VAR_cache_cluster_size: ${{ vars.cache_cluster_size }}
           TF_VAR_api_stage_default_variables: ${{ vars.api_stage_default_variables }}
@@ -114,6 +115,7 @@ jobs:
           TF_VAR_cognito_user_pool_id: ${{ vars.cognito_user_pool_id }}
           TF_VAR_api_minimum_compression_size: ${{ vars.api_minimum_compression_size }}
           TF_VAR_lambda_acervo: ${{ vars.lambda_acervo }}
+          TF_VAR_lambda_usuario: ${{ vars.lambda_usuario }}
           TF_VAR_cache_cluster_enabled: ${{ vars.cache_cluster_enabled }}
           TF_VAR_cache_cluster_size: ${{ vars.cache_cluster_size }}
           TF_VAR_api_stage_default_variables: ${{ vars.api_stage_default_variables }}
