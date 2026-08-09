@@ -14,3 +14,7 @@ data "aws_lambda_function" "minhoteca_acervo" {
 data "aws_cognito_user_pool" "user_pool" {
   user_pool_id = var.cognito_user_pool_id
 }
+
+data "aws_lambda_function" "minhoteca_usuario" {
+  function_name = var.lambda_usuario
+}
