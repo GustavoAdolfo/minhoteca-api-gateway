@@ -21,3 +21,11 @@ resource "aws_lambda_permission" "apigw_acervo" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_api_gateway_rest_api.api_minhoteca.execution_arn}/*/*"
 }
+
+resource "aws_lambda_permission" "lbd_apigateway_usuarioFunction_permission" {
+  statement_id  = "AllowExecutionUsuarioApiGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = var.lambda_usuario_arn
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.api_minhoteca.execution_arn}/*/*"
+}
