@@ -18,11 +18,38 @@ resource "aws_api_gateway_model" "perfilUsuario_put_request_model" {
       }
       name = {
         type      = "string"
-        minLength = 5
+        minLength = 1
       }
       email = {
         type    = "string"
         pattern = "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+      }
+      acknowledgement     = { type = "boolean" }
+      acknowledgementDate = { type = "string" }
+      acknowledgementTerm = { type = "string" }
+      profile             = { type = "string" }
+      birthdate           = { type = "string" }
+      givenName           = { type = "string" }
+      newUser             = { type = "boolean" }
+      phoneNumber         = { type = "string" }
+      phoneNumberVerified = { type = "boolean" }
+      preferedUserName    = { type = "string" }
+      familyName          = { type = "string" }
+      zipCode             = { type = "string" }
+      picture             = { type = "string" }
+      profileWeight       = { type = "number" }
+      address = {
+        type = "object"
+        properties = {
+          postalCode    = { type = "string" }
+          addressNumber = { type = "string" }
+          complement    = { type = "string" }
+          locality      = { type = "string" }
+          neighborhood  = { type = "string" }
+          region        = { type = "string" }
+          streetAddress = { type = "string" }
+        }
+        additionalProperties = true
       }
     }
     additionalProperties = true
@@ -88,7 +115,7 @@ resource "aws_api_gateway_integration_response" "put_perfilUsuario_integration_r
   status_code = aws_api_gateway_method_response.put_perfilUsuario_response_200.status_code
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = "'*'"
-    "method.response.header.Access-Control-Allow-Headers"     = "'Options,Content-Type,Authorization,X-Amz-Date,X-Amz-Security-Token,X-Api-Key,X-API-ACCESS'"
+    "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,Authorization,X-Amz-Date,X-Amz-Security-Token,X-Api-Key,X-API-ACCESS,X-Api-Access'"
     "method.response.header.Access-Control-Allow-Methods"     = "'GET,PUT,OPTIONS'"
     "method.response.header.Access-Control-Max-Age"           = "'7200'"
     "method.response.header.Access-Control-Allow-Credentials" = "'false'"
