@@ -112,11 +112,6 @@ resource "aws_api_gateway_integration" "post_perfilFoto_integration" {
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = var.lambda_usuario_invoke_arn
-
-  request_parameters = {
-    "integration.request.querystring.fileType"    = "method.request.querystring.fileType"
-    "integration.request.querystring.contentType" = "method.request.querystring.contentType"
-  }
 }
 
 resource "aws_api_gateway_method_response" "post_perfilFoto_response_200" {
