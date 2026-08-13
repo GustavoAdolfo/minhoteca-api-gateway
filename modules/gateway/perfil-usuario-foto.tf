@@ -62,69 +62,34 @@ resource "aws_api_gateway_integration_response" "perfilFoto_options_integration_
   }
 }
 
-#### GET
-resource "aws_api_gateway_method" "get_perfilFoto" {
-  rest_api_id      = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id      = aws_api_gateway_resource.perfilFoto.id
-  http_method      = "GET"
-  api_key_required = true
-  authorization    = "COGNITO_USER_POOLS"
-  authorizer_id    = aws_api_gateway_authorizer.authorizer.id
-
-  request_parameters = {
-    "method.request.querystring.fileType"    = true
-    "method.request.querystring.contentType" = true
-  }
-}
-
-resource "aws_api_gateway_integration" "get_perfilFoto_integration" {
-  depends_on = [aws_api_gateway_method.get_perfilFoto]
-
-  rest_api_id             = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id             = aws_api_gateway_resource.perfilFoto.id
-  http_method             = aws_api_gateway_method.get_perfilFoto.http_method
-  integration_http_method = "POST"
-  type                    = "AWS_PROXY"
-  uri                     = var.lambda_user_service_invoke_arn
-
-  request_parameters = {
-    "integration.request.querystring.fileType"    = "method.request.querystring.fileType"
-    "integration.request.querystring.contentType" = "method.request.querystring.contentType"
-  }
-}
-
-resource "aws_api_gateway_method_response" "get_perfilFoto_response_200" {
-  depends_on  = [aws_api_gateway_method.get_perfilFoto]
-  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id = aws_api_gateway_resource.perfilFoto.id
-  http_method = aws_api_gateway_method.get_perfilFoto.http_method
-  status_code = "200"
-  response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin"      = true
-    "method.response.header.Access-Control-Allow-Methods"     = true
-    "method.response.header.Access-Control-Allow-Headers"     = true
-    "method.response.header.Access-Control-Max-Age"           = true
-    "method.response.header.Access-Control-Allow-Credentials" = true
-  }
-}
-
-resource "aws_api_gateway_integration_response" "get_perfilFoto_integration_response_200" {
-  depends_on = [aws_api_gateway_integration.get_perfilFoto_integration]
-
-  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id = aws_api_gateway_resource.perfilFoto.id
-  http_method = aws_api_gateway_method.get_perfilFoto.http_method
-  status_code = aws_api_gateway_method_response.get_perfilFoto_response_200.status_code
-  response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin"      = "'*'"
-    "method.response.header.Access-Control-Allow-Headers"     = "'Options,Content-Type,Authorization,X-Amz-Date,X-Amz-Security-Token,X-Api-Key,X-API-ACCESS'"
-    "method.response.header.Access-Control-Allow-Methods"     = "'GET,PUT,POST,OPTIONS'"
-    "method.response.header.Access-Control-Max-Age"           = "'7200'"
-    "method.response.header.Access-Control-Allow-Credentials" = "'true'"
-  }
-}
-
 #### POST
+
+resource "aws_api_gateway_model" "fotoPerfilUsuario_post_request_model" {
+  rest_api_id  = aws_api_gateway_rest_api.api_minhoteca.id
+  name         = "FotoPerfilUsuarioPostRequest"
+  description  = "Payload de atualização da foto de perfil do usuário"
+  content_type = "application/json"
+
+  schema = jsonencode({
+    "$schema" = "http://json-schema.org/draft-04/schema#"
+    title     = "FotoPerfilUsuarioPostRequest"
+    type      = "object"
+    required  = ["contentType", "fileType", "method"]
+    properties = {
+      contentType = {
+        type = "string"
+      }
+      fileType = {
+        type = "string"
+      }
+      method = {
+        type = "string"
+      }
+    }
+    additionalProperties = true
+  })
+}
+
 resource "aws_api_gateway_method" "post_perfilFoto" {
   rest_api_id      = aws_api_gateway_rest_api.api_minhoteca.id
   resource_id      = aws_api_gateway_resource.perfilFoto.id
@@ -147,7 +112,7 @@ resource "aws_api_gateway_integration" "post_perfilFoto_integration" {
   http_method             = aws_api_gateway_method.post_perfilFoto.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = var.lambda_user_service_invoke_arn
+  uri                     = var.lambda_usuario_invoke_arn
 
   request_parameters = {
     "integration.request.querystring.fileType"    = "method.request.querystring.fileType"
@@ -186,11 +151,11 @@ resource "aws_api_gateway_integration_response" "post_perfilFoto_integration_res
   }
 }
 
-#### PUT
-resource "aws_api_gateway_method" "put_perfilFoto" {
+#### POST
+resource "aws_api_gateway_method" "post_perfilFoto" {
   rest_api_id      = aws_api_gateway_rest_api.api_minhoteca.id
   resource_id      = aws_api_gateway_resource.perfilFoto.id
-  http_method      = "PUT"
+  http_method      = "POST"
   api_key_required = true
   authorization    = "COGNITO_USER_POOLS"
   authorizer_id    = aws_api_gateway_authorizer.authorizer.id
@@ -201,15 +166,15 @@ resource "aws_api_gateway_method" "put_perfilFoto" {
   }
 }
 
-resource "aws_api_gateway_integration" "put_perfilFoto_integration" {
-  depends_on = [aws_api_gateway_method.put_perfilFoto]
+resource "aws_api_gateway_integration" "post_perfilFoto_integration" {
+  depends_on = [aws_api_gateway_method.post_perfilFoto]
 
   rest_api_id             = aws_api_gateway_rest_api.api_minhoteca.id
   resource_id             = aws_api_gateway_resource.perfilFoto.id
-  http_method             = aws_api_gateway_method.put_perfilFoto.http_method
+  http_method             = aws_api_gateway_method.post_perfilFoto.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = var.lambda_user_service_invoke_arn
+  uri                     = var.lambda_usuario_invoke_arn
 
   request_parameters = {
     "integration.request.querystring.fileType"    = "method.request.querystring.fileType"
@@ -217,11 +182,11 @@ resource "aws_api_gateway_integration" "put_perfilFoto_integration" {
   }
 }
 
-resource "aws_api_gateway_method_response" "put_perfilFoto_response_200" {
-  depends_on  = [aws_api_gateway_method.put_perfilFoto]
+resource "aws_api_gateway_method_response" "post_perfilFoto_response_200" {
+  depends_on  = [aws_api_gateway_method.post_perfilFoto]
   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
   resource_id = aws_api_gateway_resource.perfilFoto.id
-  http_method = aws_api_gateway_method.put_perfilFoto.http_method
+  http_method = aws_api_gateway_method.post_perfilFoto.http_method
   status_code = "200"
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = true
@@ -232,13 +197,13 @@ resource "aws_api_gateway_method_response" "put_perfilFoto_response_200" {
   }
 }
 
-resource "aws_api_gateway_integration_response" "put_perfilFoto_integration_response_200" {
-  depends_on = [aws_api_gateway_integration.put_perfilFoto_integration]
+resource "aws_api_gateway_integration_response" "post_perfilFoto_integration_response_200" {
+  depends_on = [aws_api_gateway_integration.post_perfilFoto_integration]
 
   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
   resource_id = aws_api_gateway_resource.perfilFoto.id
-  http_method = aws_api_gateway_method.put_perfilFoto.http_method
-  status_code = aws_api_gateway_method_response.put_perfilFoto_response_200.status_code
+  http_method = aws_api_gateway_method.post_perfilFoto.http_method
+  status_code = aws_api_gateway_method_response.post_perfilFoto_response_200.status_code
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = "'*'"
     "method.response.header.Access-Control-Allow-Headers"     = "'Options,Content-Type,Authorization,X-Amz-Date,X-Amz-Security-Token,X-Api-Key,X-API-ACCESS'"
