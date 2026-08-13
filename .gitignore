@@ -44,3 +44,4 @@ terraform.rc
 # planout
 
 **/*.txt
+.tf-init.log

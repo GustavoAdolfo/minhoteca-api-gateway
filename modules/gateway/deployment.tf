@@ -20,10 +20,10 @@ resource "aws_api_gateway_deployment" "api_deploy" {
     create_before_destroy = true
   }
   triggers = {
-    redeployment = sha1(jsonencode([
-      random_string.random.id,
-      random_pet.server.id,
-      local.api_configuration_json
-    ]))
+    redeployment = sha1(jsonencode({
+      api_config = local.api_configuration_json
+      authorizer = aws_api_gateway_authorizer.authorizer.id
+      perfil     = aws_api_gateway_method.put_perfilUsuario.id
+    }))
   }
 }
