@@ -27,6 +27,12 @@ variable "api_key_name" {
   description = "Nome da chave de API para acesso à API Gateway"
 }
 
+variable "api_cors_allowed_origin" {
+  type        = string
+  description = "Origem permitida pelo CORS do frontend. Ex.: https://app.minhoteca.com ou '*' para ambiente sem credenciais"
+  default     = "*"
+}
+
 variable "cache_cluster_enabled" { type = bool }
 variable "cache_cluster_size" { type = number }
 variable "api_stage_default_variables" {

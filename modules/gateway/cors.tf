@@ -51,8 +51,8 @@ resource "aws_api_gateway_integration_response" "cors_integration_response" {
   http_method = aws_api_gateway_method.cors_method.http_method
   status_code = 200
   response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin"      = "'*'",
-    "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,Authorization,X-Amz-Date,X-Amz-Security-Token,X-Api-Key'",
+    "method.response.header.Access-Control-Allow-Origin"      = "'${var.api_cors_allowed_origin}'",
+    "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,Authorization,x-api-access,X-API-ACCESS,X-Api-Access,X-Api-Key,X-Amz-Date,X-Amz-Security-Token'",
     "method.response.header.Access-Control-Allow-Methods"     = "'GET,OPTIONS,HEAD,POST,PUT,PATCH,DELETE'"
     "method.response.header.Access-Control-Max-Age"           = "'7200'"
     "method.response.header.Access-Control-Allow-Credentials" = "'false'"
@@ -114,8 +114,8 @@ resource "aws_api_gateway_integration_response" "cors_integration_response_v1" {
   http_method = aws_api_gateway_method.cors_v1.http_method
   status_code = 200
   response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin"      = "'*'",
-    "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,Authorization,X-Amz-Date,X-Amz-Security-Token,X-Api-Key'",
+    "method.response.header.Access-Control-Allow-Origin"      = "'${var.api_cors_allowed_origin}'",
+    "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,Authorization,x-api-access,X-API-ACCESS,X-Api-Access,X-Api-Key,X-Amz-Date,X-Amz-Security-Token'",
     "method.response.header.Access-Control-Allow-Methods"     = "'GET,OPTIONS,HEAD,POST,PUT,PATCH,DELETE'"
     "method.response.header.Access-Control-Max-Age"           = "'7200'"
     "method.response.header.Access-Control-Allow-Credentials" = "'false'"

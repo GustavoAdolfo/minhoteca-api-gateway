@@ -25,6 +25,7 @@ module "gateway" {
   api_minimum_compression_size = var.api_minimum_compression_size
   api_name                     = var.api_name
   api_key_name                 = var.api_key_name
+  api_cors_allowed_origin      = var.api_cors_allowed_origin
   cognito_user_pool_arn        = local.cognito_user_pool_arn
   cache_cluster_enabled        = var.cache_cluster_enabled
   cache_cluster_size           = var.cache_cluster_size
