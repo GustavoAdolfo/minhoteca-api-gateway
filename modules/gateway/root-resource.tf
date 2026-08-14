@@ -49,7 +49,7 @@ resource "aws_api_gateway_integration_response" "root_integration_response_200" 
   status_code = aws_api_gateway_method_response.root_response_200.status_code
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = "'*'"
-    "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,Authorization,X-Amz-Date,X-Amz-Security-Token,X-Api-Key'"
+    "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,Authorization,X-Amz-Date,X-Amz-Security-Token,X-Api-Key,x-api-access,X-API-ACCESS,X-Api-Access'"
     "method.response.header.Access-Control-Allow-Methods"     = "'GET,OPTIONS,POST,PUT,HEAD,PATCH,DELETE'"
     "method.response.header.Access-Control-Max-Age"           = "'7200'"
     "method.response.header.Access-Control-Allow-Credentials" = "'false'"
