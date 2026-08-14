@@ -54,8 +54,8 @@ resource "aws_api_gateway_integration_response" "perfilFoto_options_integration_
   http_method = aws_api_gateway_method.perfilFoto_method_options.http_method
   status_code = "200"
   response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin"      = "'*'"
-    "method.response.header.Access-Control-Allow-Headers"     = "'Options,Content-Type,Authorization,X-Amz-Date,X-Amz-Security-Token,X-Api-Key,x-api-access,X-API-ACCESS,X-Api-Access'"
+    "method.response.header.Access-Control-Allow-Origin"      = "'${var.api_cors_allowed_origin}'"
+    "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,Authorization,x-api-access,X-API-ACCESS,X-Api-Access,X-Api-Key,X-Amz-Date,X-Amz-Security-Token'"
     "method.response.header.Access-Control-Allow-Methods"     = "'GET,PUT,POST,OPTIONS'"
     "method.response.header.Access-Control-Max-Age"           = "'7200'"
     "method.response.header.Access-Control-Allow-Credentials" = "'false'"
