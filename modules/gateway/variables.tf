@@ -2,6 +2,11 @@ variable "application_tags" { type = map(string) }
 variable "api_minimum_compression_size" { type = string }
 variable "api_name" { type = string }
 variable "api_key_name" { type = string }
+variable "api_cors_allowed_origin" {
+  type        = string
+  description = "Origin aceita pelo CORS da API Gateway. Use o domínio do frontend em prod ou '*' quando a origem não for fixa."
+  default     = "*"
+}
 variable "cognito_user_pool_arn" { type = string }
 variable "lambda_acervo_arn" { type = string }
 variable "lambda_acervo_invoke_arn" { type = string }
