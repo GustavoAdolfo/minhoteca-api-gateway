@@ -58,7 +58,7 @@ resource "aws_api_gateway_integration_response" "options_getAutores_integration_
   status_code = "200"
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = "'*'"
-    "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,Authorization,x-api-access,X-API-ACCESS,X-Amz-Date,X-Amz-Security-Token,X-Api-Key'"
+    "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,Authorization,x-api-access,X-API-ACCESS,X-Api-Access,X-Amz-Date,X-Amz-Security-Token,X-Api-Key'"
     "method.response.header.Access-Control-Allow-Methods"     = "'GET,OPTIONS,PUT'"
     "method.response.header.Access-Control-Max-Age"           = "'7200'"
     "method.response.header.Access-Control-Allow-Credentials" = "'false'"
@@ -155,7 +155,7 @@ resource "aws_api_gateway_integration_response" "getAutores_integration_response
   status_code = aws_api_gateway_method_response.getAutores_response_200.status_code
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = "'*'"
-    "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,Authorization,x-api-access,X-API-ACCESS,X-Amz-Date,X-Amz-Security-Token,X-Api-Key'"
+    "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,Authorization,x-api-access,X-API-ACCESS,X-Api-Access,X-Amz-Date,X-Amz-Security-Token,X-Api-Key'"
     "method.response.header.Access-Control-Allow-Methods"     = "'GET,OPTIONS,POST,PUT'"
     "method.response.header.Access-Control-Max-Age"           = "'7200'"
     "method.response.header.Access-Control-Allow-Credentials" = "'false'"

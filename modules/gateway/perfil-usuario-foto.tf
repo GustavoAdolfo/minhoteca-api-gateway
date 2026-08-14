@@ -55,7 +55,7 @@ resource "aws_api_gateway_integration_response" "perfilFoto_options_integration_
   status_code = "200"
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = "'*'"
-    "method.response.header.Access-Control-Allow-Headers"     = "'Options,Content-Type,Authorization,X-Amz-Date,X-Amz-Security-Token,X-Api-Key,X-API-ACCESS'"
+    "method.response.header.Access-Control-Allow-Headers"     = "'Options,Content-Type,Authorization,X-Amz-Date,X-Amz-Security-Token,X-Api-Key,x-api-access,X-API-ACCESS,X-Api-Access'"
     "method.response.header.Access-Control-Allow-Methods"     = "'GET,PUT,POST,OPTIONS'"
     "method.response.header.Access-Control-Max-Age"           = "'7200'"
     "method.response.header.Access-Control-Allow-Credentials" = "'false'"
@@ -138,7 +138,7 @@ resource "aws_api_gateway_integration_response" "post_perfilFoto_integration_res
   status_code = aws_api_gateway_method_response.post_perfilFoto_response_200.status_code
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = "'*'"
-    "method.response.header.Access-Control-Allow-Headers"     = "'Options,Content-Type,Authorization,X-Amz-Date,X-Amz-Security-Token,X-Api-Key,X-API-ACCESS'"
+    "method.response.header.Access-Control-Allow-Headers"     = "'Options,Content-Type,Authorization,X-Amz-Date,X-Amz-Security-Token,X-Api-Key,x-api-access,X-API-ACCESS,X-Api-Access'"
     "method.response.header.Access-Control-Allow-Methods"     = "'GET,PUT,POST,OPTIONS'"
     "method.response.header.Access-Control-Max-Age"           = "'7200'"
     "method.response.header.Access-Control-Allow-Credentials" = "'true'"

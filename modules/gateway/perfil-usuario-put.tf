@@ -115,7 +115,7 @@ resource "aws_api_gateway_integration_response" "put_perfilUsuario_integration_r
   status_code = aws_api_gateway_method_response.put_perfilUsuario_response_200.status_code
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = "'*'"
-    "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,Authorization,X-Amz-Date,X-Amz-Security-Token,X-Api-Key,X-API-ACCESS,X-Api-Access'"
+    "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,Authorization,X-Amz-Date,X-Amz-Security-Token,X-Api-Key,x-api-access,X-API-ACCESS,X-Api-Access'"
     "method.response.header.Access-Control-Allow-Methods"     = "'GET,PUT,OPTIONS'"
     "method.response.header.Access-Control-Max-Age"           = "'7200'"
     "method.response.header.Access-Control-Allow-Credentials" = "'false'"
