@@ -33,6 +33,8 @@ locals {
     aws_api_gateway_method.perfilUsuario_method_options.id,
     aws_api_gateway_method.root_method_get.id,
     aws_api_gateway_method.root_method_options.id,
+    aws_api_gateway_method.getEstatisticas_method.id,
+    aws_api_gateway_method.options_getEstatisticas.id,
   ]
 
   api_gateway_integration_ids = [
@@ -53,6 +55,8 @@ locals {
     aws_api_gateway_integration.put_perfilUsuario_integration.id,
     aws_api_gateway_integration.root_get_integration.id,
     aws_api_gateway_integration.root_options_integration.id,
+    aws_api_gateway_integration.getEstatisticas_integration.id,
+    aws_api_gateway_integration.options_getEstatisticas_integration.id,
   ]
 }
 
