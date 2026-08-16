@@ -11,7 +11,27 @@ resource "aws_api_gateway_stage" "stage_default" {
 
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.log_group.arn
-    format          = "$context.extendedRequestId $context.identity.sourceIp $context.identity.caller $context.identity.user [$context.requestTime] \"$context.httpMethod $context.resourcePath $context.protocol\" $context.status $context.responseLength $context.requestId"
+    format = join("", [
+      "{",
+      "\"requestTime\":\"$context.requestTime\",",
+      "\"requestId\":\"$context.requestId\",",
+      "\"extendedRequestId\":\"$context.extendedRequestId\",",
+      "\"ip\":\"$context.identity.sourceIp\",",
+      "\"caller\":\"$context.identity.caller\",",
+      "\"user\":\"$context.identity.user\",",
+      "\"httpMethod\":\"$context.httpMethod\",",
+      "\"resourcePath\":\"$context.resourcePath\",",
+      "\"protocol\":\"$context.protocol\",",
+      "\"status\":\"$context.status\",",
+      "\"responseLength\":\"$context.responseLength\",",
+      "\"responseLatencyMs\":\"$context.responseLatency\",",
+      "\"integrationLatencyMs\":\"$context.integrationLatency\",",
+      "\"integrationStatus\":\"$context.integration.status\",",
+      "\"integrationError\":\"$context.integrationErrorMessage\",",
+      "\"authorizerLatencyMs\":\"$context.authorizer.integrationLatency\",",
+      "\"path\":\"$context.path\"",
+      "}"
+    ])
   }
 
   tags       = merge(var.application_tags, { Contexto = "API" })
@@ -71,9 +91,9 @@ resource "aws_api_gateway_method_settings" "all" {
   settings {
     caching_enabled      = false
     cache_data_encrypted = true
-    data_trace_enabled   = false
+    data_trace_enabled   = true
     metrics_enabled      = var.metrics_enabled
-    logging_level        = "ERROR"
+    logging_level        = "INFO"
   }
 }
 
