@@ -45,3 +45,4 @@ terraform.rc
 
 **/*.txt
 .tf-init.log
+envs/local/
