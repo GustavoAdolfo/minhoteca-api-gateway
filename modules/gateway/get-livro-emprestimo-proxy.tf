@@ -1,12 +1,6 @@
-resource "aws_api_gateway_resource" "gateway_getEmprestimoLivro" {
-  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
-  parent_id   = aws_api_gateway_resource.getLivro_resource.id
-  path_part   = "{livroId}"
-}
-
 resource "aws_api_gateway_resource" "getLivro_emprestimo_resource" {
   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
-  parent_id   = aws_api_gateway_resource.gateway_getEmprestimoLivro.id
+  parent_id   = aws_api_gateway_resource.gateway_getLivro.id
   path_part   = "emprestimos"
 }
 
@@ -17,7 +11,7 @@ resource "aws_api_gateway_method" "gateway_optionsLivro_emprestimo_method" {
   resource_id      = aws_api_gateway_resource.getLivro_emprestimo_resource.id
   http_method      = "OPTIONS"
   authorization    = "NONE"
-  api_key_required = true
+  api_key_required = false
 }
 
 resource "aws_api_gateway_integration" "gateway_getLivro_emprestimo_integration" {
@@ -78,7 +72,7 @@ resource "aws_api_gateway_method" "getLivro_emprestimo_method" {
   rest_api_id      = aws_api_gateway_rest_api.api_minhoteca.id
   resource_id      = aws_api_gateway_resource.getLivro_emprestimo_resource.id
   http_method      = "GET"
-  api_key_required = false
+  api_key_required = true
   authorization    = "NONE"
 }
 
