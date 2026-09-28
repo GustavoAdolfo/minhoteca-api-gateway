@@ -8,4 +8,6 @@ locals {
   cognito_user_pool_arn     = data.aws_cognito_user_pool.user_pool.arn
   lambda_usuario_arn        = data.aws_lambda_function.minhoteca_usuario.arn
   lambda_usuario_invoke_arn = data.aws_lambda_function.minhoteca_usuario.invoke_arn
+  lambda_admin_arn          = data.aws_lambda_function.minhoteca_admin.arn
+  lambda_admin_invoke_arn   = data.aws_lambda_function.minhoteca_admin.invoke_arn
 }

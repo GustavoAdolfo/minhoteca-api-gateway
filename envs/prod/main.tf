@@ -42,4 +42,6 @@ module "gateway" {
   lambda_acervo_invoke_arn     = local.lambda_acervo_invoke_arn
   lambda_usuario_arn           = local.lambda_usuario_arn
   lambda_usuario_invoke_arn    = local.lambda_usuario_invoke_arn
+  lambda_admin_arn             = local.lambda_admin_arn
+  lambda_admin_invoke_arn      = local.lambda_admin_invoke_arn
 }
