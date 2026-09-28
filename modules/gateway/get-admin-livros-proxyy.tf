@@ -66,9 +66,8 @@ resource "aws_api_gateway_method" "get_admin_livros_method" {
   authorizer_id    = aws_api_gateway_authorizer.authorizer.id
 
   request_parameters = {
-    "method.request.querystring.page"         = false
-    "method.request.querystring.sort[sortBy]" = false
-    "method.request.querystring.limit"        = false
+    "method.request.querystring.page"  = false
+    "method.request.querystring.limit" = false
   }
 }
 
@@ -86,9 +85,8 @@ resource "aws_api_gateway_integration" "get_admin_livros_integration" {
   uri                     = var.lambda_admin_invoke_arn
   passthrough_behavior    = "WHEN_NO_MATCH"
   request_parameters = {
-    "integration.request.querystring.page"         = "method.request.querystring.page"
-    "integration.request.querystring.sort[sortBy]" = "method.request.querystring.sort[sortBy]"
-    "integration.request.querystring.limit"        = "method.request.querystring.limit"
+    "integration.request.querystring.page"  = "method.request.querystring.page"
+    "integration.request.querystring.limit" = "method.request.querystring.limit"
   }
 }
 
