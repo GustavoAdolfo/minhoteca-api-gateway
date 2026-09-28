@@ -40,14 +40,14 @@ locals {
     aws_api_gateway_method.get_emprestar.id,
     aws_api_gateway_method.post_emprestar.id,
     aws_api_gateway_method.emprestar_method_options.id,
-    aws_api_gateway_method.options_admin_autores.id,
-    aws_api_gateway_method.get_admin_autores_method.id,
     aws_api_gateway_method.options_admin_editoras.id,
     aws_api_gateway_method.get_admin_editoras_method.id,
-    aws_api_gateway_method.options_admin_livros.id,
-    aws_api_gateway_method.get_admin_livros_method.id,
-    aws_api_gateway_method.options_admin_paises.id,
-    aws_api_gateway_method.get_admin_paises_method.id,
+    # aws_api_gateway_method.options_admin_autores.id,
+    # aws_api_gateway_method.get_admin_autores_method.id,
+    # aws_api_gateway_method.options_admin_livros.id,
+    # aws_api_gateway_method.get_admin_livros_method.id,
+    # aws_api_gateway_method.options_admin_paises.id,
+    # aws_api_gateway_method.get_admin_paises_method.id,
   ]
 
   api_gateway_integration_ids = [
@@ -74,14 +74,14 @@ locals {
     aws_api_gateway_integration.get_emprestar_integration.id,
     aws_api_gateway_integration.post_emprestar_integration.id,
     aws_api_gateway_integration.emprestar_options_integration.id,
-    aws_api_gateway_integration.options_admin_autores_integration.id,
-    aws_api_gateway_integration.get_admin_autores_integration.id,
     aws_api_gateway_integration.options_admin_editoras_integration.id,
     aws_api_gateway_integration.get_admin_editoras_integration.id,
-    aws_api_gateway_integration.options_admin_livros_integration.id,
-    aws_api_gateway_integration.get_admin_livros_integration.id,
-    aws_api_gateway_integration.options_admin_paises_integration.id,
-    aws_api_gateway_integration.get_admin_paises_integration.id,
+    # aws_api_gateway_integration.options_admin_autores_integration.id,
+    # aws_api_gateway_integration.get_admin_autores_integration.id,
+    # aws_api_gateway_integration.options_admin_livros_integration.id,
+    # aws_api_gateway_integration.get_admin_livros_integration.id,
+    # aws_api_gateway_integration.options_admin_paises_integration.id,
+    # aws_api_gateway_integration.get_admin_paises_integration.id,
   ]
 }
 
