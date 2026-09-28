@@ -11,6 +11,10 @@ data "aws_lambda_function" "minhoteca_acervo" {
   function_name = var.lambda_acervo
 }
 
+data "aws_lambda_function" "minhoteca_admin" {
+  function_name = var.lambda_admin
+}
+
 data "aws_cognito_user_pool" "user_pool" {
   user_pool_id = var.cognito_user_pool_id
 }
