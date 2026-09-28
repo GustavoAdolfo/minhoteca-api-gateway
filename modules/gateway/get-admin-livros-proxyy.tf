@@ -63,6 +63,7 @@ resource "aws_api_gateway_method" "get_admin_livros_method" {
   http_method      = "GET"
   api_key_required = true
   authorization    = "COGNITO_USER_POOLS"
+  authorizer_id    = aws_api_gateway_authorizer.authorizer.id
 
   request_parameters = {
     "method.request.querystring.page"         = false
