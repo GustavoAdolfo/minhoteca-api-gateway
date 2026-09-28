@@ -68,7 +68,6 @@ resource "aws_api_gateway_integration_response" "options_getLivros_integration_r
 ##### GET
 
 resource "aws_api_gateway_method" "getLivros_method" {
-  #checkov:skip=CKV2_AWS_53: "Nenhum validador de requisição aplicável par ao momento"
   rest_api_id      = aws_api_gateway_rest_api.api_minhoteca.id
   resource_id      = aws_api_gateway_resource.getLivros_resource.id
   http_method      = "GET"
