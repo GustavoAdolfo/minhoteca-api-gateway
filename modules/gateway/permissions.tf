@@ -29,3 +29,11 @@ resource "aws_lambda_permission" "lbd_apigateway_usuarioFunction_permission" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_api_gateway_rest_api.api_minhoteca.execution_arn}/*/*"
 }
+
+resource "aws_lambda_permission" "lbd_apigateway_adminFunction_permission" {
+  statement_id  = "AllowExecutionAdminApiGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = var.lambda_admin_arn
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.api_minhoteca.execution_arn}/*/*"
+}
