@@ -28,11 +28,11 @@ resource "aws_api_gateway_resource" "admin_paises_resource" {
   path_part   = "paises"
 }
 
-# resource "aws_api_gateway_resource" "admin_editora_resource" {
-#   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
-#   parent_id   = aws_api_gateway_resource.admin_resource.id
-#   path_part   = "editora"
-# }
+resource "aws_api_gateway_resource" "admin_editora_resource" {
+  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
+  parent_id   = aws_api_gateway_resource.admin_resource.id
+  path_part   = "editora"
+}
 
 # resource "aws_api_gateway_resource" "admin_autor_resource" {
 #   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
