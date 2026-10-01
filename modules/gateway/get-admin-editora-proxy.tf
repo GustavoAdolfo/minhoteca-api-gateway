@@ -71,7 +71,7 @@ resource "aws_api_gateway_method" "get_admin_editora_method" {
   }
 }
 
-output "get_admin_editoras_method_path" {
+output "get_admin_editora_method_path" {
   value = "${aws_api_gateway_resource.admin_editora_resource.path}/${aws_api_gateway_method.get_admin_editora_method.http_method}"
 }
 
