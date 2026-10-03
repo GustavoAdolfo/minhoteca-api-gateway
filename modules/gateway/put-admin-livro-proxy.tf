@@ -106,7 +106,7 @@ resource "aws_api_gateway_integration_response" "put_admin_livro_integration_res
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = "'*'"
     "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,x-api-access,X-API-ACCESS,X-Api-Access,Authorization,X-Amz-Date,X-Amz-Security-Token,X-Api-Key'"
-    "method.response.header.Access-Control-Allow-Methods"     = "'GET,PUT,OPTIONS'"
+    "method.response.header.Access-Control-Allow-Methods"     = "'GET,PUT,DELETE,OPTIONS'"
     "method.response.header.Access-Control-Max-Age"           = "'7200'"
     "method.response.header.Access-Control-Allow-Credentials" = "'false'"
   }
