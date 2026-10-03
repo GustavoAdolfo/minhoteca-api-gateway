@@ -48,6 +48,12 @@ locals {
     aws_api_gateway_method.get_admin_livros_method.id,
     aws_api_gateway_method.options_admin_paises.id,
     aws_api_gateway_method.get_admin_paises_method.id,
+    aws_api_gateway_method.options_admin_livro.id,
+    aws_api_gateway_method.get_admin_livro_method.id,
+    aws_api_gateway_method.options_admin_autor.id,
+    aws_api_gateway_method.get_admin_autor_method.id,
+    aws_api_gateway_method.options_admin_editora.id,
+    aws_api_gateway_method.get_admin_editora_method.id,
   ]
 
   api_gateway_integration_ids = [
@@ -82,6 +88,12 @@ locals {
     aws_api_gateway_integration.get_admin_livros_integration.id,
     aws_api_gateway_integration.options_admin_paises_integration.id,
     aws_api_gateway_integration.get_admin_paises_integration.id,
+    aws_api_gateway_integration.options_admin_livro_integration.id,
+    aws_api_gateway_integration.get_admin_livro_integration.id,
+    aws_api_gateway_integration.options_admin_autor_integration.id,
+    aws_api_gateway_integration.get_admin_autor_integration.id,
+    aws_api_gateway_integration.options_admin_editora_integration.id,
+    aws_api_gateway_integration.get_admin_editora_integration.id,
   ]
 }
 

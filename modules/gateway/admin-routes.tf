@@ -34,21 +34,39 @@ resource "aws_api_gateway_resource" "admin_editora_resource" {
   path_part   = "editora"
 }
 
-# resource "aws_api_gateway_resource" "admin_autor_resource" {
-#   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
-#   parent_id   = aws_api_gateway_resource.admin_resource.id
-#   path_part   = "autor"
-# }
+resource "aws_api_gateway_resource" "admin_autor_resource" {
+  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
+  parent_id   = aws_api_gateway_resource.admin_resource.id
+  path_part   = "autor"
+}
 
-# resource "aws_api_gateway_resource" "admin_livro_resource" {
-#   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
-#   parent_id   = aws_api_gateway_resource.admin_resource.id
-#   path_part   = "livro"
-# }
+resource "aws_api_gateway_resource" "admin_livro_resource" {
+  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
+  parent_id   = aws_api_gateway_resource.admin_resource.id
+  path_part   = "livro"
+}
 
 
-# resource "aws_api_gateway_resource" "admin_pais_resource" {
-#   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
-#   parent_id   = aws_api_gateway_resource.admin_resource.id
-#   path_part   = "pais"
-# }
+resource "aws_api_gateway_resource" "admin_pais_resource" {
+  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
+  parent_id   = aws_api_gateway_resource.admin_resource.id
+  path_part   = "pais"
+}
+
+resource "aws_api_gateway_resource" "admin_editora_id_resource" {
+  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
+  parent_id   = aws_api_gateway_resource.admin_editora_resource.id
+  path_part   = "{id}"
+}
+
+resource "aws_api_gateway_resource" "admin_autor_id_resource" {
+  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
+  parent_id   = aws_api_gateway_resource.admin_autor_resource.id
+  path_part   = "{id}"
+}
+
+resource "aws_api_gateway_resource" "admin_livro_id_resource" {
+  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
+  parent_id   = aws_api_gateway_resource.admin_livro_resource.id
+  path_part   = "{id}"
+}
