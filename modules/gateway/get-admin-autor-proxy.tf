@@ -1,16 +1,16 @@
 #### OPTIONS E CORS
-resource "aws_api_gateway_method" "options_admin_editora" {
+resource "aws_api_gateway_method" "options_admin_autor" {
   rest_api_id      = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id      = aws_api_gateway_resource.admin_editora_id_resource.id
+  resource_id      = aws_api_gateway_resource.admin_autor_id_resource.id
   http_method      = "OPTIONS"
   authorization    = "NONE"
   api_key_required = false
 }
 
-resource "aws_api_gateway_integration" "options_admin_editora_integration" {
+resource "aws_api_gateway_integration" "options_admin_autor_integration" {
   rest_api_id          = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id          = aws_api_gateway_resource.admin_editora_id_resource.id
-  http_method          = aws_api_gateway_method.options_admin_editora.http_method
+  resource_id          = aws_api_gateway_resource.admin_autor_id_resource.id
+  http_method          = aws_api_gateway_method.options_admin_autor.http_method
   type                 = "MOCK"
   content_handling     = "CONVERT_TO_TEXT"
   passthrough_behavior = "WHEN_NO_MATCH"
@@ -20,10 +20,10 @@ resource "aws_api_gateway_integration" "options_admin_editora_integration" {
   }
 }
 
-resource "aws_api_gateway_method_response" "options_admin_editora_response" {
+resource "aws_api_gateway_method_response" "options_admin_autor_response" {
   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id = aws_api_gateway_resource.admin_editora_id_resource.id
-  http_method = aws_api_gateway_method.options_admin_editora.http_method
+  resource_id = aws_api_gateway_resource.admin_autor_id_resource.id
+  http_method = aws_api_gateway_method.options_admin_autor.http_method
   status_code = "200"
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = true
@@ -37,14 +37,14 @@ resource "aws_api_gateway_method_response" "options_admin_editora_response" {
   }
 }
 
-resource "aws_api_gateway_integration_response" "options_admin_editora_integration_response" {
+resource "aws_api_gateway_integration_response" "options_admin_autor_integration_response" {
   depends_on = [
-    aws_api_gateway_integration.options_admin_editora_integration,
-    aws_api_gateway_method_response.options_admin_editora_response
+    aws_api_gateway_integration.options_admin_autor_integration,
+    aws_api_gateway_method_response.options_admin_autor_response
   ]
   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id = aws_api_gateway_resource.admin_editora_id_resource.id
-  http_method = aws_api_gateway_method.options_admin_editora.http_method
+  resource_id = aws_api_gateway_resource.admin_autor_id_resource.id
+  http_method = aws_api_gateway_method.options_admin_autor.http_method
   status_code = "200"
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = "'*'"
@@ -56,10 +56,10 @@ resource "aws_api_gateway_integration_response" "options_admin_editora_integrati
 }
 
 ##### GET
-resource "aws_api_gateway_method" "get_admin_editora_method" {
+resource "aws_api_gateway_method" "get_admin_autor_method" {
   #checkov:skip=CKV2_AWS_53: "Nenhum validador de requisição aplicável par ao momento"
   rest_api_id      = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id      = aws_api_gateway_resource.admin_editora_id_resource.id
+  resource_id      = aws_api_gateway_resource.admin_autor_id_resource.id
   http_method      = "GET"
   api_key_required = true
   authorization    = "COGNITO_USER_POOLS"
@@ -70,26 +70,26 @@ resource "aws_api_gateway_method" "get_admin_editora_method" {
   }
 }
 
-output "get_admin_editora_method_path" {
-  value = "${aws_api_gateway_resource.admin_editora_id_resource.path}/${aws_api_gateway_method.get_admin_editora_method.http_method}"
+output "get_admin_autor_method_path" {
+  value = "${aws_api_gateway_resource.admin_autor_id_resource.path}/${aws_api_gateway_method.get_admin_autor_method.http_method}"
 }
 
-resource "aws_api_gateway_integration" "get_admin_editora_integration" {
-  depends_on              = [aws_api_gateway_method.get_admin_editora_method]
+resource "aws_api_gateway_integration" "get_admin_autor_integration" {
+  depends_on              = [aws_api_gateway_method.get_admin_autor_method]
   rest_api_id             = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id             = aws_api_gateway_resource.admin_editora_id_resource.id
-  http_method             = aws_api_gateway_method.get_admin_editora_method.http_method
+  resource_id             = aws_api_gateway_resource.admin_autor_id_resource.id
+  http_method             = aws_api_gateway_method.get_admin_autor_method.http_method
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = var.lambda_admin_invoke_arn
   passthrough_behavior    = "WHEN_NO_MATCH"
 }
 
-resource "aws_api_gateway_method_response" "get_admin_editora_response_200" {
-  depends_on  = [aws_api_gateway_method.get_admin_editora_method]
+resource "aws_api_gateway_method_response" "get_admin_autor_response_200" {
+  depends_on  = [aws_api_gateway_method.get_admin_autor_method]
   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id = aws_api_gateway_resource.admin_editora_id_resource.id
-  http_method = aws_api_gateway_method.get_admin_editora_method.http_method
+  resource_id = aws_api_gateway_resource.admin_autor_id_resource.id
+  http_method = aws_api_gateway_method.get_admin_autor_method.http_method
   status_code = "200"
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = true
@@ -100,12 +100,12 @@ resource "aws_api_gateway_method_response" "get_admin_editora_response_200" {
   }
 }
 
-resource "aws_api_gateway_integration_response" "get_admin_editora_integration_response_200" {
-  depends_on  = [aws_api_gateway_integration.get_admin_editora_integration]
+resource "aws_api_gateway_integration_response" "get_admin_autor_integration_response_200" {
+  depends_on  = [aws_api_gateway_integration.get_admin_autor_integration]
   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
-  resource_id = aws_api_gateway_resource.admin_editora_id_resource.id
-  http_method = aws_api_gateway_method.get_admin_editora_method.http_method
-  status_code = aws_api_gateway_method_response.get_admin_editora_response_200.status_code
+  resource_id = aws_api_gateway_resource.admin_autor_id_resource.id
+  http_method = aws_api_gateway_method.get_admin_autor_method.http_method
+  status_code = aws_api_gateway_method_response.get_admin_autor_response_200.status_code
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = "'*'"
     "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,x-api-access,X-API-ACCESS,X-Api-Access,Authorization,X-Amz-Date,X-Amz-Security-Token,X-Api-Key'"
