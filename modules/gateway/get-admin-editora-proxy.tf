@@ -49,7 +49,7 @@ resource "aws_api_gateway_integration_response" "options_admin_editora_integrati
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = "'*'"
     "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,x-api-access,X-API-ACCESS,X-Api-Access,Authorization,X-Amz-Date,X-Amz-Security-Token,X-Api-Key'"
-    "method.response.header.Access-Control-Allow-Methods"     = "'GET,OPTIONS'"
+    "method.response.header.Access-Control-Allow-Methods"     = "'GET,PUT,OPTIONS'"
     "method.response.header.Access-Control-Max-Age"           = "'7200'"
     "method.response.header.Access-Control-Allow-Credentials" = "'false'"
   }
@@ -109,7 +109,7 @@ resource "aws_api_gateway_integration_response" "get_admin_editora_integration_r
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin"      = "'*'"
     "method.response.header.Access-Control-Allow-Headers"     = "'Content-Type,x-api-access,X-API-ACCESS,X-Api-Access,Authorization,X-Amz-Date,X-Amz-Security-Token,X-Api-Key'"
-    "method.response.header.Access-Control-Allow-Methods"     = "'GET,OPTIONS'"
+    "method.response.header.Access-Control-Allow-Methods"     = "'GET,PUT,OPTIONS'"
     "method.response.header.Access-Control-Max-Age"           = "'7200'"
     "method.response.header.Access-Control-Allow-Credentials" = "'false'"
   }
