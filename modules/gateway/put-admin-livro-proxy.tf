@@ -16,7 +16,7 @@ resource "aws_api_gateway_model" "admin_livro_put_request_model" {
         type      = "string"
         minLength = 1
       }
-      subtitulo         = { type = "string" }
+      subtitulo         = { type = ["string", "null"] }
       sinopse           = { type = "string" }
       imagemCapaUrl     = { type = "string" }
       imagemCapaMiniUrl = { type = "string" }
