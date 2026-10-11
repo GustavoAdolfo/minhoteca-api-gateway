@@ -20,6 +20,48 @@ Este repositório centraliza a definição de infraestrutura do API Gateway da M
 
 No momento, o projeto está em fase inicial de estruturação e documentação.
 
+### Termos de uso
+
+`GET /v1/termos-de-uso` retorna diretamente o corpo de
+`s3://minhoteca-contratos/termos-de-uso.md`, com
+`Content-Type: text/markdown; charset=utf-8`. Não usa Lambda nem authorizer;
+exige `x-api-key`. O OPTIONS é público.
+
+A integração usa uma role dedicada com `s3:GetObject` somente para esse arquivo
+e `kms:Decrypt` na chave Minhoteca, via S3. O alias da chave é configurado por
+`kms_minhoteca_alias_name` (padrão: `alias/minhoteca_log_encrypt`).
+O bucket e a chave devem existir na mesma região da API antes do deploy.
+O arquivo deve estar publicado em UTF-8; o Terraform não envia seu conteúdo.
+
+A leitura seleciona a versão atual do objeto. Erros S3 403 e 404 são preservados;
+demais respostas inesperadas retornam 502, nunca sucesso com XML de erro.
+Sem `s3:ListBucket`, o S3 pode responder 403 para um objeto inexistente.
+
+### Rotas administrativas de usuários e listas
+
+| Método | Rota |
+| ------ | ---- |
+| GET | `/v1/admin/usuarios` |
+| GET | `/v1/admin/usuario/{id}` |
+| GET | `/v1/admin/lista/{tipo}` |
+| POST | `/v1/admin/lista` |
+| PUT | `/v1/admin/lista/{tipo}/{idUsuario}` |
+
+As rotas usam o authorizer Cognito existente e exigem API key, assim como as
+demais rotas administrativas. Todas usam integração `AWS_PROXY` com
+`lambda_admin_invoke_arn`, associado à função administrativa em produção.
+Os parâmetros de caminho são enviados à Lambda sem renomeação.
+Cada recurso possui OPTIONS público para preflight CORS. As novas integrações
+participam do gatilho e das dependências do deployment da API.
+
+Os testes de contrato das novas rotas usam providers simulados, sem criar
+recursos AWS (Terraform >= 1.7):
+
+```bash
+terraform -chdir=modules/gateway init -backend=false
+terraform -chdir=modules/gateway test
+```
+
 ### Principais arquivos
 
 - `README.md` - documentação principal do projeto

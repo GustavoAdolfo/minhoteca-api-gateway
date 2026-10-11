@@ -21,6 +21,7 @@ provider "aws" {
 
 module "gateway" {
   source                       = "../../modules/gateway"
+  kms_minhoteca_alias_name     = var.kms_minhoteca_alias_name
   application_tags             = local.application_tags
   api_minimum_compression_size = var.api_minimum_compression_size
   api_name                     = var.api_name
