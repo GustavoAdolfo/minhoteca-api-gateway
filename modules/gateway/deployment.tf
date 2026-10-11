@@ -142,10 +142,27 @@ resource "aws_api_gateway_deployment" "api_deploy" {
 
   triggers = {
     redeployment = sha1(jsonencode({
-      api_config   = local.api_configuration_json
-      authorizer   = aws_api_gateway_authorizer.authorizer.id
-      methods      = local.api_gateway_method_ids
-      integrations = local.api_gateway_integration_ids
+      api_config = local.api_configuration_json
+      authorizer = aws_api_gateway_authorizer.authorizer.id
+      methods = concat(
+        local.api_gateway_method_ids,
+        [aws_api_gateway_method.use_terms_get.id, aws_api_gateway_method.use_terms_options.id],
+        [for method in aws_api_gateway_method.admin_usuarios_listas : method.id],
+        [for method in aws_api_gateway_method.options_admin_usuarios_listas : method.id]
+      )
+      integrations = concat(
+        local.api_gateway_integration_ids,
+        [
+          aws_api_gateway_integration.use_terms_get_integration.id,
+          aws_api_gateway_integration.use_terms_options_integration.id,
+          aws_api_gateway_integration_response.use_terms_get_integration_response_200.id,
+          aws_api_gateway_integration_response.use_terms_options_integration_response.id
+        ],
+        [for response in aws_api_gateway_integration_response.use_terms_error : response.id],
+        [for integration in aws_api_gateway_integration.admin_usuarios_listas : integration.id],
+        [for integration in aws_api_gateway_integration.options_admin_usuarios_listas : integration.id],
+        [for response in aws_api_gateway_integration_response.options_admin_usuarios_listas : response.id]
+      )
     }))
   }
 }

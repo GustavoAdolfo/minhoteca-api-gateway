@@ -51,3 +51,9 @@ variable "api_quota_settings_period" { type = string }
 variable "api_throttle_settings_burst" { type = string }
 variable "api_throttle_settings_rate" { type = string }
 variable "metrics_enabled" { type = bool }
+
+variable "kms_minhoteca_alias_name" {
+  type        = string
+  description = "Alias da chave Minhoteca usada pelo bucket de contratos"
+  default     = "alias/minhoteca_log_encrypt"
+}

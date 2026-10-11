@@ -4,6 +4,42 @@ resource "aws_api_gateway_resource" "admin_resource" {
   path_part   = "admin"
 }
 
+resource "aws_api_gateway_resource" "admin_usuarios_resource" {
+  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
+  parent_id   = aws_api_gateway_resource.admin_resource.id
+  path_part   = "usuarios"
+}
+
+resource "aws_api_gateway_resource" "admin_usuario_resource" {
+  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
+  parent_id   = aws_api_gateway_resource.admin_resource.id
+  path_part   = "usuario"
+}
+
+resource "aws_api_gateway_resource" "admin_usuario_id_resource" {
+  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
+  parent_id   = aws_api_gateway_resource.admin_usuario_resource.id
+  path_part   = "{id}"
+}
+
+resource "aws_api_gateway_resource" "admin_lista_resource" {
+  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
+  parent_id   = aws_api_gateway_resource.admin_resource.id
+  path_part   = "lista"
+}
+
+resource "aws_api_gateway_resource" "admin_lista_tipo_resource" {
+  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
+  parent_id   = aws_api_gateway_resource.admin_lista_resource.id
+  path_part   = "{tipo}"
+}
+
+resource "aws_api_gateway_resource" "admin_lista_usuario_resource" {
+  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
+  parent_id   = aws_api_gateway_resource.admin_lista_tipo_resource.id
+  path_part   = "{idUsuario}"
+}
+
 resource "aws_api_gateway_resource" "admin_editoras_resource" {
   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
   parent_id   = aws_api_gateway_resource.admin_resource.id
