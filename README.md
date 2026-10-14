@@ -43,6 +43,8 @@ Sem `s3:ListBucket`, o S3 pode responder 403 para um objeto inexistente.
 | ------ | ---- |
 | GET | `/v1/admin/usuarios` |
 | GET | `/v1/admin/usuario/{id}` |
+| GET | `/v1/admin/emprestimos` |
+| PUT | `/v1/admin/emprestimo/{usuarioId}/{livroId}` |
 | GET | `/v1/admin/lista/{tipo}` |
 | POST | `/v1/admin/lista` |
 | PUT | `/v1/admin/lista/{tipo}/{idUsuario}` |

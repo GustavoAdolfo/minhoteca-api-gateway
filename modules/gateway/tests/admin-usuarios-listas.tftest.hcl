@@ -52,14 +52,16 @@ run "admin_usuarios_listas" {
 
   assert {
     condition = (
-      length(aws_api_gateway_method.admin_usuarios_listas) == 5 &&
+      length(aws_api_gateway_method.admin_usuarios_listas) == 7 &&
+      aws_api_gateway_method.admin_usuarios_listas["emprestimos_get"].http_method == "GET" &&
+      aws_api_gateway_method.admin_usuarios_listas["emprestimo_put"].http_method == "PUT" &&
       aws_api_gateway_method.admin_usuarios_listas["usuarios_get"].http_method == "GET" &&
       aws_api_gateway_method.admin_usuarios_listas["usuario_get"].http_method == "GET" &&
       aws_api_gateway_method.admin_usuarios_listas["lista_get"].http_method == "GET" &&
       aws_api_gateway_method.admin_usuarios_listas["lista_post"].http_method == "POST" &&
       aws_api_gateway_method.admin_usuarios_listas["lista_put"].http_method == "PUT"
     )
-    error_message = "Devem existir exatamente três GET, um POST e um PUT nas rotas solicitadas."
+    error_message = "Devem existir quatro GET, um POST e dois PUT nas rotas solicitadas."
   }
 
   assert {
@@ -145,7 +147,21 @@ run "admin_usuarios_listas" {
 
   assert {
     condition = (
-      length(aws_api_gateway_method.options_admin_usuarios_listas) == 5 &&
+      aws_api_gateway_resource.admin_emprestimos_resource.path_part == "emprestimos" &&
+      aws_api_gateway_resource.admin_emprestimo_resource.path_part == "emprestimo" &&
+      aws_api_gateway_resource.admin_emprestimo_usuario_resource.path_part == "{usuarioId}" &&
+      aws_api_gateway_resource.admin_emprestimo_livro_resource.path_part == "{livroId}" &&
+      aws_api_gateway_method.admin_usuarios_listas["emprestimo_put"].request_parameters["method.request.path.usuarioId"] &&
+      aws_api_gateway_method.admin_usuarios_listas["emprestimo_put"].request_parameters["method.request.path.livroId"] &&
+      aws_api_gateway_integration_response.options_admin_usuarios_listas["emprestimos"].response_parameters["method.response.header.Access-Control-Allow-Methods"] == "'GET,OPTIONS'" &&
+      aws_api_gateway_integration_response.options_admin_usuarios_listas["emprestimo"].response_parameters["method.response.header.Access-Control-Allow-Methods"] == "'PUT,OPTIONS'"
+    )
+    error_message = "Emprestimos devem preservar as duas chaves no PUT e oferecer CORS para GET e PUT."
+  }
+
+  assert {
+    condition = (
+      length(aws_api_gateway_method.options_admin_usuarios_listas) == 7 &&
       alltrue([
         for method in aws_api_gateway_method.options_admin_usuarios_listas :
         method.http_method == "OPTIONS" && method.authorization == "NONE" && !method.api_key_required
