@@ -1,5 +1,18 @@
 locals {
   admin_usuarios_listas_routes = {
+    emprestimos_get = {
+      resource_id        = aws_api_gateway_resource.admin_emprestimos_resource.id
+      http_method        = "GET"
+      request_parameters = {}
+    }
+    emprestimo_put = {
+      resource_id = aws_api_gateway_resource.admin_emprestimo_livro_resource.id
+      http_method = "PUT"
+      request_parameters = {
+        "method.request.path.usuarioId" = true
+        "method.request.path.livroId"   = true
+      }
+    }
     usuarios_get = {
       resource_id        = aws_api_gateway_resource.admin_usuarios_resource.id
       http_method        = "GET"
@@ -35,6 +48,8 @@ locals {
   }
 
   admin_usuarios_listas_cors = {
+    emprestimos = { resource_id = aws_api_gateway_resource.admin_emprestimos_resource.id, methods = "GET,OPTIONS" }
+    emprestimo  = { resource_id = aws_api_gateway_resource.admin_emprestimo_livro_resource.id, methods = "PUT,OPTIONS" }
     usuarios = { resource_id = aws_api_gateway_resource.admin_usuarios_resource.id, methods = "GET,OPTIONS" }
     usuario  = { resource_id = aws_api_gateway_resource.admin_usuario_id_resource.id, methods = "GET,OPTIONS" }
     lista    = { resource_id = aws_api_gateway_resource.admin_lista_resource.id, methods = "POST,OPTIONS" }
