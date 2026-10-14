@@ -10,6 +10,30 @@ resource "aws_api_gateway_resource" "admin_usuarios_resource" {
   path_part   = "usuarios"
 }
 
+resource "aws_api_gateway_resource" "admin_emprestimos_resource" {
+  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
+  parent_id   = aws_api_gateway_resource.admin_resource.id
+  path_part   = "emprestimos"
+}
+
+resource "aws_api_gateway_resource" "admin_emprestimo_resource" {
+  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
+  parent_id   = aws_api_gateway_resource.admin_resource.id
+  path_part   = "emprestimo"
+}
+
+resource "aws_api_gateway_resource" "admin_emprestimo_usuario_resource" {
+  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
+  parent_id   = aws_api_gateway_resource.admin_emprestimo_resource.id
+  path_part   = "{usuarioId}"
+}
+
+resource "aws_api_gateway_resource" "admin_emprestimo_livro_resource" {
+  rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
+  parent_id   = aws_api_gateway_resource.admin_emprestimo_usuario_resource.id
+  path_part   = "{livroId}"
+}
+
 resource "aws_api_gateway_resource" "admin_usuario_resource" {
   rest_api_id = aws_api_gateway_rest_api.api_minhoteca.id
   parent_id   = aws_api_gateway_resource.admin_resource.id
